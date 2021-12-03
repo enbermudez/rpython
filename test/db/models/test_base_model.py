@@ -45,7 +45,6 @@ def test_find():
 
     assert records_john[0]["name"] == "John Doe"
     assert records_john[1]["name"] == "John Doe"
-
     with pytest.raises(IndexError):
         records_john[2]
 

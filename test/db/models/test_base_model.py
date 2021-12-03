@@ -3,7 +3,7 @@ import pymongo
 import pytest
 from pymongo.cursor import Cursor
 from bson.objectid import ObjectId
-from db.base_model import BaseModel
+from db.models.base_model import BaseModel
 
 @mongomock.patch(servers = (('localhost')))
 def test_insert_one():

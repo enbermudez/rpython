@@ -24,3 +24,7 @@ Run unit tests with:
 ```bash
 pytest
 ```
+
+## contributing
+
+Create branches from `develop` and make a PR with the changes.

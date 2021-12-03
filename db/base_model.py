@@ -10,10 +10,14 @@ class BaseModel:
         return inserted_id
 
 
+    def insert_many(self, data):
+        result = self.collection.insert_many(data)
+        return result.inserted_ids
+
+
     def find_one(self, query):
         return self.collection.find_one(query)
 
 
-    def insert_many(self, data):
-        result = self.collection.insert_many(data)
-        return result.inserted_ids
+    def find(self, query):
+        return self.collection.find(query)

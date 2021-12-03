@@ -6,9 +6,14 @@ class BaseModel:
 
 
     def insert_one(self, data):
-        insert_id = self.collection.insert_one(data).inserted_id
-        return insert_id
+        inserted_id = self.collection.insert_one(data).inserted_id
+        return inserted_id
 
 
     def find_one(self, query):
         return self.collection.find_one(query)
+
+
+    def insert_many(self, data):
+        result = self.collection.insert_many(data)
+        return result.inserted_ids

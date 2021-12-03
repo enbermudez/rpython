@@ -22,5 +22,5 @@ cp config.example.json config.json # copy config.example.json config.json
 Run unit tests with:
 
 ```bash
-python -m unittest
+pytest
 ```

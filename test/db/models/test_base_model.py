@@ -54,7 +54,7 @@ def test_find():
 
 
 @mongomock.patch(servers = (('localhost')))
-def test_find_one_and_update():
+def test_update_one():
     client = pymongo.MongoClient('localhost')
     basemodel = BaseModel("baselmodel", db = client.db)
     record_id = basemodel.insert_one({ "name": "John Doe" })
@@ -63,3 +63,13 @@ def test_find_one_and_update():
 
     assert updated_record["name"] == "Mary Sue"
     assert updated_record["_id"] == record_id
+
+
+@mongomock.patch(servers = (('localhost')))
+def test_update_many():
+    client = pymongo.MongoClient('localhost')
+    basemodel = BaseModel("baselmodel", db = client.db)
+    basemodel.insert_many([{ "name": "John Doe" }, { "name": "John Doe" }, { "name": "Mary Sue" }])
+    result = basemodel.update_many({ "name": "John Doe" }, { "name": "Mary Sue" })
+
+    assert result.matched_count == 2

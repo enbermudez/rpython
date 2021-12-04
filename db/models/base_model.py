@@ -25,3 +25,7 @@ class BaseModel:
 
     def update_one(self, query, data):
         return self.collection.update_one(query, { "$set": data }, upsert = False)
+
+
+    def update_many(self, query, data):
+        return self.collection.update_many(query, { "$inc": data }, upsert = False)

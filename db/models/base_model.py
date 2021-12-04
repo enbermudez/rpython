@@ -6,13 +6,11 @@ class BaseModel:
 
 
     def insert_one(self, data):
-        inserted_id = self.collection.insert_one(data).inserted_id
-        return inserted_id
+        return self.collection.insert_one(data)
 
 
     def insert_many(self, data):
-        result = self.collection.insert_many(data)
-        return result.inserted_ids
+        return self.collection.insert_many(data)
 
 
     def find_one(self, query):
@@ -29,3 +27,11 @@ class BaseModel:
 
     def update_many(self, query, data):
         return self.collection.update_many(query, { "$inc": data }, upsert = False)
+
+
+    def delete_one(self, query):
+        return self.collection.delete_one(query)
+
+
+    def delete_many(self, query):
+        return self.collection.delete_many(query)

@@ -21,3 +21,7 @@ class BaseModel:
 
     def find(self, query):
         return self.collection.find(query)
+
+
+    def update_one(self, query, data):
+        return self.collection.update_one(query, { "$set": data }, upsert = False)

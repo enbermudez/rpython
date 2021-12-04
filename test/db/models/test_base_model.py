@@ -39,7 +39,7 @@ def test_find_one():
 def test_find():
     client = pymongo.MongoClient('localhost')
     basemodel = BaseModel("baselmodel", db = client.db)
-    record_id = basemodel.insert_many([{ "name": "John Doe" }, { "name": "John Doe" }, { "name": "Mary Sue" }])
+    basemodel.insert_many([{ "name": "John Doe" }, { "name": "John Doe" }, { "name": "Mary Sue" }])
     records_john = basemodel.find({ "name": "John Doe" })
     records_mary = basemodel.find({ "name": "Mary Sue" })
 
@@ -51,3 +51,15 @@ def test_find():
     assert records_mary[0]["name"] == "Mary Sue"
     with  pytest.raises(IndexError):
         records_mary[1]
+
+
+@mongomock.patch(servers = (('localhost')))
+def test_find_one_and_update():
+    client = pymongo.MongoClient('localhost')
+    basemodel = BaseModel("baselmodel", db = client.db)
+    record_id = basemodel.insert_one({ "name": "John Doe" })
+    basemodel.update_one({ "_id": record_id }, { "name": "Mary Sue" })
+    updated_record = basemodel.find_one({ "name": "Mary Sue" })
+
+    assert updated_record["name"] == "Mary Sue"
+    assert updated_record["_id"] == record_id
